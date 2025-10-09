@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 interface Props {
   type?: 'button' | 'submit';
   href?: string;
+  test?: string;
   children: ReactNode;
 }
 
