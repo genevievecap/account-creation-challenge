@@ -35,9 +35,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/create-account',
-    element: <CreateAccount />
-  }
+    element: <CreateAccount />,
+  },
 ]);
+
+// TODO: authentication logic needs to go here?
 
 export function Router() {
   return (

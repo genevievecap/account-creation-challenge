@@ -14,7 +14,7 @@ export function CreateAccount() {
           <Input label="Username" variant={InputVariants.UNDERLINE} />
           <Input label="Password" variant={InputVariants.UNDERLINE} />
           <div className="pt-2">
-            <Button href="/signup/joint-access" isFullWidth>
+            <Button href="/signup/account-selection" isFullWidth>
               Create Account
             </Button>
           </div>
