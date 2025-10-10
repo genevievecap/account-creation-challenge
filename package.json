@@ -5,13 +5,15 @@
     "dev": "vite",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "start": "bin/rails s"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix",
     "*.{js,css,md}": "prettier --write"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.16.0"
