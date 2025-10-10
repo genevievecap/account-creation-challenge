@@ -6,7 +6,11 @@ import { FlowLayout } from '../../../reusable-components/flow-layout/flow-layout
 export function AccountSelection() {
   return (
     <FlowLayout>
-      <Card title="What type of account would you like?" description="You can open a new account in just 5 minutes.">
+      <Card
+        title="What type of account would you like?"
+        description="You can open a new account in just 5 minutes."
+        isFullWidth
+      >
         <div className="space-y-2 first-child:border-t-slate-200">
           <Link
             to="/signup/create-user?type=cash"

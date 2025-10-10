@@ -1,6 +1,6 @@
-export enum VariantTypes {
+export enum InputVariants {
     BLOCK = 'BLOCK',
     UNDERLINE = 'UNDERLINE'
 }
 
-export type InputVariants = VariantTypes.BLOCK | VariantTypes.UNDERLINE;
+export type VariantTypes = InputVariants.BLOCK | InputVariants.UNDERLINE;

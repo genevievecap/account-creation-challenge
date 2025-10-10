@@ -7,7 +7,7 @@ import { Input } from '../../../reusable-components/input/input.tsx';
 export function Deposit() {
   return (
     <FlowLayout>
-      <Card title="Deposit funds" description="Accounts can be funded with as little as $5.">
+      <Card isFullWidth title="Deposit funds" description="Accounts can be funded with as little as $5.">
         <div className="space-y-2">
           <Input label="Deposit Amount" />
           <Button href="/signup/account-selection">Start over</Button>

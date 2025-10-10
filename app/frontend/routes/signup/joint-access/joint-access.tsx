@@ -8,6 +8,7 @@ export function JointAccess() {
   return (
     <FlowLayout>
       <Card
+        isFullWidth
         title="Will this be a joint account?"
         description="Joint accounts allow for a secondary account holder which provides the same level of access as the primary."
       >

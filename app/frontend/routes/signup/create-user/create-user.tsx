@@ -7,7 +7,7 @@ import { Input } from '../../../reusable-components/input/input';
 export function CreateUser() {
   return (
     <FlowLayout>
-      <Card title="What's your first and last name?">
+      <Card title="What's your first and last name?" isFullWidth>
         <div className="space-y-2">
           <Input label="First name" />
           <Input label="Last name" />

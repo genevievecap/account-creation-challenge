@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { ChangeEvent, useState } from 'react';
-import { InputVariants, VariantTypes } from './types';
+import { InputVariants } from './types';
 
 interface Props {
   label: string;
@@ -22,8 +22,8 @@ export function Input({ onChange, label, variant }: Props) {
       <input
         id={id}
         className={classNames('block w-full p-2', {
-          'border-4 border-solid border-slate-300': variant === VariantTypes.BLOCK || !variant,
-          'border-b-4 border-solid border-slate-300': variant === VariantTypes.UNDERLINE,
+          'border-4 border-solid border-slate-300': variant === InputVariants.BLOCK || !variant,
+          'border-b-4 border-solid border-slate-300': variant === InputVariants.UNDERLINE,
         })}
         value={value}
         onChange={handleChange}

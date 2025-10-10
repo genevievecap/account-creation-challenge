@@ -8,6 +8,7 @@ export function StockRestrictions() {
   return (
     <FlowLayout>
       <Card
+        isFullWidth
         title="Are you restricted from trading any stocks?"
         description="If you are a broker dealer or registered representative of another company, you may be restricted from trading that stock."
       >
