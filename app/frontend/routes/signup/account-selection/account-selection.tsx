@@ -1,9 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Card } from '../../../reusable-components/card/card.tsx';
 import { FlowLayout } from '../../../reusable-components/flow-layout/flow-layout.tsx';
+import { AccountContext } from 'app/frontend/providers/AccountProvider/index.tsx';
 
 export function AccountSelection() {
+  const user = useContext(AccountContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user && user.state && !user.state.isValid) {
+      navigate('/create-account');
+    }
+  }, [user, navigate]);
+
   return (
     <FlowLayout>
       <Card

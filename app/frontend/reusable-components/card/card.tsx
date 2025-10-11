@@ -10,8 +10,6 @@ interface Props {
 }
 
 export function Card({ children, title, description, isFullWidth, titleStyles }: Props) {
-  console.log(isFullWidth);
-
   return (
     <section
       className={classNames('p-10 shadow-card min-h-[400px] rounded-2xl border border-solid border-slate-200', {

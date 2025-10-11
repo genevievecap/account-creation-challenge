@@ -4,15 +4,18 @@ import { Card } from 'app/frontend/reusable-components/card/card';
 import { FlowLayout } from 'app/frontend/reusable-components/flow-layout/flow-layout';
 import { Input } from 'app/frontend/reusable-components/input/input';
 import { InputVariants } from 'app/frontend/reusable-components/input/types';
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CREATE_ACCOUNT_ERROR_MAP } from './constants';
+import { AccountContext } from 'app/frontend/providers/AccountProvider';
+import { AccountActionTypes } from 'app/frontend/providers/AccountProvider/types';
 
 export function CreateAccount() {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [validation, setValidation] = React.useState<{ username?: string; password?: string } | null>(null);
   const navigate = useNavigate();
+  const user = useContext(AccountContext);
   const [loading, setLoading] = React.useState(false);
 
   const handleUsernameChange = useCallback((value: string) => {
@@ -38,6 +41,8 @@ export function CreateAccount() {
 
       if (data.username === true && data.password === true) {
         navigate('/signup/account-selection');
+
+        user?.dispatch({ type: AccountActionTypes.SET_USERNAME, payload: { username } });
         return;
       }
 
