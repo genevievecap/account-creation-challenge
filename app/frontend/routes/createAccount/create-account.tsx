@@ -1,5 +1,4 @@
 import { Button } from 'app/frontend/reusable-components/button/button';
-import { ButtonVariants } from 'app/frontend/reusable-components/button/types';
 import { Card } from 'app/frontend/reusable-components/card/card';
 import { FlowLayout } from 'app/frontend/reusable-components/flow-layout/flow-layout';
 import { Input } from 'app/frontend/reusable-components/input/input';
@@ -55,7 +54,7 @@ export function CreateAccount() {
     } finally {
       setLoading(false);
     }
-  }, [username, password, navigate]);
+  }, [username, password, navigate, user]);
 
   return (
     <FlowLayout>
@@ -78,7 +77,6 @@ export function CreateAccount() {
               {loading ? 'Validating...' : 'Create Account'}
             </Button>
           </div>
-          <Button variant={ButtonVariants.TERTIARY}>Skip</Button>
         </div>
       </Card>
     </FlowLayout>

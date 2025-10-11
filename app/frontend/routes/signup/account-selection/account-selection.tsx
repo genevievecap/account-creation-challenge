@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Card } from '../../../reusable-components/card/card.tsx';
 import { FlowLayout } from '../../../reusable-components/flow-layout/flow-layout.tsx';
 import { AccountContext } from 'app/frontend/providers/AccountProvider/index.tsx';
+import { WelcomeMessage } from 'app/frontend/reusable-components/welcomeMessage/index.tsx';
 
 export function AccountSelection() {
   const user = useContext(AccountContext);
@@ -16,6 +17,7 @@ export function AccountSelection() {
 
   return (
     <FlowLayout>
+      <WelcomeMessage />
       <Card
         title="What type of account would you like?"
         description="You can open a new account in just 5 minutes."
