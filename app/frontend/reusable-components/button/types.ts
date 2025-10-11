@@ -6,6 +6,8 @@ export interface ButtonProps {
   children: ReactNode;
   isFullWidth?: boolean;
   variant?: VariantTypes | undefined;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
 export enum ButtonVariants {

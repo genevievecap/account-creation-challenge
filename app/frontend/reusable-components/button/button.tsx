@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { ButtonProps, ButtonVariants } from './types';
 import classNames from 'classnames';
 
-export function Button({ href, children, type, variant, isFullWidth }: ButtonProps) {
-  // const classes = getButtonClasses(fullwidth);
+export function Button({ href, children, type, variant, isFullWidth, onClick, disabled }: ButtonProps) {
   const buttonStyling = useMemo(() => {
     switch (variant) {
       case ButtonVariants.PRIMARY:
@@ -37,6 +36,8 @@ export function Button({ href, children, type, variant, isFullWidth }: ButtonPro
       className={classNames('inline-block ', buttonStyling, {
         'w-full text-center': isFullWidth,
       })}
+      onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>

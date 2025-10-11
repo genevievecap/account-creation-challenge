@@ -2,13 +2,14 @@ import classNames from 'classnames';
 import React, { ChangeEvent, useState } from 'react';
 import { InputVariants } from './types';
 
-interface Props {
+interface InputProps {
   label: string;
   onChange?: (value: string) => void;
   variant?: InputVariants | undefined;
+  errorText?: string;
 }
 
-export function Input({ onChange, label, variant }: Props) {
+export function Input({ onChange, label, variant, errorText }: InputProps) {
   const [value, setValue] = useState('');
   const id = label.replace(/ /gm, '_');
 
@@ -28,6 +29,7 @@ export function Input({ onChange, label, variant }: Props) {
         value={value}
         onChange={handleChange}
       />
+      {errorText && <div className="text-orange-500 text-xs">{errorText}</div>}
     </div>
   );
 }
