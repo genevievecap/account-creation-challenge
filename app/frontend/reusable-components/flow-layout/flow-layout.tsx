@@ -14,6 +14,9 @@ export function FlowLayout({ children }: Props) {
   const navigate = useNavigate();
   const isValid = user?.state.isValid;
 
+  // TODO: need to add session storage logic for this
+  // Test coverage for everything
+
   const handleLogout = useCallback(() => {
     user?.dispatch({ type: AccountActionTypes.DELETE_USERNAME });
     navigate('/create-account');
