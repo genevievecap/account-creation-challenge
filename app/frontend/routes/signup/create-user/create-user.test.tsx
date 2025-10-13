@@ -1,5 +1,6 @@
 import { describe, test } from '@jest/globals';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { CreateUser } from './create-user';

@@ -15,7 +15,7 @@ export function CreateAccount() {
   const [validation, setValidation] = React.useState<{ username?: string; password?: string } | null>(null);
   const navigate = useNavigate();
   const user = useContext(AccountContext);
-  const [loading, setLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleUsernameChange = useCallback((value: string) => {
     setUsername(value);
@@ -28,8 +28,9 @@ export function CreateAccount() {
   }, []);
 
   const handleCreateAccount = useCallback(async () => {
-    setLoading(true);
+    setIsLoading(true);
     setValidation(null);
+
     try {
       const res = await fetch('/api/validate_account', {
         method: 'POST',
@@ -52,7 +53,7 @@ export function CreateAccount() {
     } catch (e) {
       setValidation({ username: 'SERVER_ERROR', password: 'SERVER_ERROR' });
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }, [username, password, navigate, user]);
 
@@ -61,20 +62,22 @@ export function CreateAccount() {
       <Card titleStyles="pb-4 text-center font-mono font-semibold" title="Create New Account">
         <div className="space-y-2">
           <Input
+            dataTest="usernameInput"
             errorText={validation?.username}
             label="Username"
             onChange={handleUsernameChange}
             variant={InputVariants.UNDERLINE}
           />
           <Input
+            dataTest="passwordInput"
             errorText={validation?.password}
             label="Password"
             onChange={handlePasswordChange}
             variant={InputVariants.UNDERLINE}
           />
           <div className="pt-2">
-            <Button isFullWidth onClick={handleCreateAccount} disabled={loading}>
-              {loading ? 'Validating...' : 'Create Account'}
+            <Button isFullWidth onClick={handleCreateAccount} disabled={isLoading}>
+              {isLoading ? 'Validating...' : 'Create Account'}
             </Button>
           </div>
         </div>

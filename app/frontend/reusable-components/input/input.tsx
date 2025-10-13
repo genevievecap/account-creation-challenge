@@ -4,12 +4,13 @@ import { InputVariants } from './types';
 
 interface InputProps {
   label: string;
+  dataTest: string;
   onChange?: (value: string) => void;
   variant?: InputVariants | undefined;
   errorText?: string;
 }
 
-export function Input({ onChange, label, variant, errorText }: InputProps) {
+export function Input({ onChange, label, dataTest, variant, errorText }: InputProps) {
   const [value, setValue] = useState('');
   const id = label.replace(/ /gm, '_');
 
@@ -22,6 +23,7 @@ export function Input({ onChange, label, variant, errorText }: InputProps) {
       <label className="block text-sm">{label}</label>
       <input
         id={id}
+        data-testid={dataTest}
         className={classNames('block w-full p-2', {
           'border-4 border-solid border-slate-300': variant === InputVariants.BLOCK || !variant,
           'border-b-4 border-solid border-slate-300': variant === InputVariants.UNDERLINE,
