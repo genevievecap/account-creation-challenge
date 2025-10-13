@@ -15,7 +15,7 @@ export function FlowLayout({ children }: Props) {
   const isValid = user?.state.isValid;
 
   // TODO: need to add session storage logic for this
-  // Test coverage for everything
+  // Test coverage for storage logic
 
   const handleLogout = useCallback(() => {
     user?.dispatch({ type: AccountActionTypes.DELETE_USERNAME });

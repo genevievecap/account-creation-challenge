@@ -39,8 +39,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-// TODO: authentication logic needs to go here?
-
 export function Router() {
   return (
     <main className="h-screen w-screen">
