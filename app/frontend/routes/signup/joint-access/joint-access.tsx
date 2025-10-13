@@ -5,14 +5,22 @@ import { FlowLayout } from '../../../reusable-components/flow-layout/flow-layout
 import { Input } from '../../../reusable-components/input/input';
 import { AccountContext } from 'app/frontend/providers/AccountProvider/index.tsx';
 import { useNavigate } from 'react-router-dom';
+import { SIGN_UP_ERROR_MESSAGE } from 'app/frontend/constants.ts';
+import { AlertContext } from 'app/frontend/providers/AlertProvider/index.tsx';
+import { AlertActionTypes } from 'app/frontend/providers/AlertProvider/types.ts';
 
 export function JointAccess() {
   const user = useContext(AccountContext);
+  const alerts = useContext(AlertContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user && user.state && !user.state.isValid) {
       navigate('/create-account');
+      alerts?.dispatch({
+        type: AlertActionTypes.SET_ALERT,
+        payload: { alert: { message: SIGN_UP_ERROR_MESSAGE } },
+      });
     }
   }, [user, navigate]);
 
@@ -24,9 +32,9 @@ export function JointAccess() {
         description="Joint accounts allow for a secondary account holder which provides the same level of access as the primary."
       >
         <div className="space-y-2">
-          <Input label="First name" />
-          <Input label="Last name" />
-          <Input label="Email" />
+          <Input dataTest="first-name-joint-access" label="First name" />
+          <Input dataTest="last-name-joint-access" label="Last name" />
+          <Input dataTest="email-joint-access" label="Email" />
           <Button href="/signup/stock-restrictions">Continue</Button>
         </div>
       </Card>

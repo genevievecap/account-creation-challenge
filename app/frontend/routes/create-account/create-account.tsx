@@ -8,6 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import { CREATE_ACCOUNT_ERROR_MAP } from './constants';
 import { AccountContext } from 'app/frontend/providers/AccountProvider';
 import { AccountActionTypes } from 'app/frontend/providers/AccountProvider/types';
+import { Alert } from 'app/frontend/reusable-components/alert';
+import { AlertContext } from 'app/frontend/providers/AlertProvider';
+import { AlertActionTypes } from 'app/frontend/providers/AlertProvider/types';
 
 export function CreateAccount() {
   const [username, setUsername] = React.useState('');
@@ -15,6 +18,7 @@ export function CreateAccount() {
   const [validation, setValidation] = React.useState<{ username?: string; password?: string } | null>(null);
   const navigate = useNavigate();
   const user = useContext(AccountContext);
+  const alerts = useContext(AlertContext);
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleUsernameChange = useCallback((value: string) => {
@@ -30,6 +34,8 @@ export function CreateAccount() {
   const handleCreateAccount = useCallback(async () => {
     setIsLoading(true);
     setValidation(null);
+
+    alerts?.dispatch({ type: AlertActionTypes.DELETE_ALERT });
 
     try {
       const res = await fetch('/api/validate_account', {
@@ -60,6 +66,9 @@ export function CreateAccount() {
   return (
     <FlowLayout>
       <Card titleStyles="pb-4 text-center font-mono font-semibold" title="Create New Account">
+        <div className="pb-2">
+          <Alert message={alerts?.state?.alert?.message} />
+        </div>
         <div className="space-y-2">
           <Input
             dataTest="usernameInput"

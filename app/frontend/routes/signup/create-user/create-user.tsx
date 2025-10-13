@@ -5,14 +5,22 @@ import { FlowLayout } from '../../../reusable-components/flow-layout/flow-layout
 import { Input } from '../../../reusable-components/input/input';
 import { AccountContext } from 'app/frontend/providers/AccountProvider/index.tsx';
 import { useNavigate } from 'react-router-dom';
+import { SIGN_UP_ERROR_MESSAGE } from 'app/frontend/constants.ts';
+import { AlertContext } from 'app/frontend/providers/AlertProvider/index.tsx';
+import { AlertActionTypes } from 'app/frontend/providers/AlertProvider/types.ts';
 
 export function CreateUser() {
   const user = useContext(AccountContext);
   const navigate = useNavigate();
+  const alerts = useContext(AlertContext);
 
   useEffect(() => {
     if (user && user.state && !user.state.isValid) {
       navigate('/create-account');
+      alerts?.dispatch({
+        type: AlertActionTypes.SET_ALERT,
+        payload: { alert: { message: SIGN_UP_ERROR_MESSAGE } },
+      });
     }
   }, [user, navigate]);
 
@@ -20,9 +28,9 @@ export function CreateUser() {
     <FlowLayout>
       <Card title="What's your first and last name?" isFullWidth>
         <div className="space-y-2">
-          <Input label="First name" />
-          <Input label="Last name" />
-          <Input label="Email" />
+          <Input dataTest="first-name" label="First name" />
+          <Input dataTest="last-name" label="Last name" />
+          <Input dataTest="email" label="Email" />
           <Button href="/signup/joint-access">Continue</Button>
         </div>
       </Card>
