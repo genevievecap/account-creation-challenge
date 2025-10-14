@@ -11,6 +11,7 @@ import { AccountActionTypes } from 'app/frontend/providers/AccountProvider/types
 import { Alert } from 'app/frontend/reusable-components/alert';
 import { AlertContext } from 'app/frontend/providers/AlertProvider';
 import { AlertActionTypes } from 'app/frontend/providers/AlertProvider/types';
+import { SERVER_ERROR_MESSAGE } from 'app/frontend/constants';
 
 export function CreateAccount() {
   const [username, setUsername] = React.useState('');
@@ -40,16 +41,18 @@ export function CreateAccount() {
     try {
       const res = await fetch('/api/validate_account', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
       const data = await res.json();
 
-      if (data.username === true && data.password === true) {
+      console.log('response from backend:', data);
+
+      if (data?.logged_in) {
         navigate('/signup/account-selection');
 
         user?.dispatch({ type: AccountActionTypes.SET_USERNAME, payload: { username } });
-        return;
       }
 
       const usernameError = CREATE_ACCOUNT_ERROR_MAP[data.username as keyof typeof CREATE_ACCOUNT_ERROR_MAP];
@@ -57,7 +60,7 @@ export function CreateAccount() {
 
       setValidation({ username: usernameError, password: passwordError });
     } catch (e) {
-      setValidation({ username: 'SERVER_ERROR', password: 'SERVER_ERROR' });
+      alerts?.dispatch({ type: AlertActionTypes.SET_ALERT, payload: { alert: { message: SERVER_ERROR_MESSAGE } } });
     } finally {
       setIsLoading(false);
     }
