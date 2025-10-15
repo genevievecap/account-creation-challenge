@@ -7,6 +7,7 @@ import { WelcomeMessage } from 'app/frontend/reusable-components/welcomeMessage/
 import { AlertActionTypes } from 'app/frontend/providers/AlertProvider/types.ts';
 import { AlertContext } from 'app/frontend/providers/AlertProvider/index.tsx';
 import { SIGN_UP_ERROR_MESSAGE } from 'app/frontend/constants.ts';
+import { getUserSession } from 'app/frontend/get-user.ts';
 
 export function AccountSelection() {
   const user = useContext(AccountContext);
@@ -14,6 +15,8 @@ export function AccountSelection() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // TODO: this is returning false
+    getUserSession();
     if (user && user.state && !user.state.isValid) {
       navigate('/create-account');
       alerts?.dispatch({
