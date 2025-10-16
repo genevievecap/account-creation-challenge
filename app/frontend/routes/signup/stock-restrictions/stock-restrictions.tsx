@@ -25,7 +25,7 @@ export function StockRestrictions() {
       >
         {/*<li>style UI to look like given mock, make sure the typeahead is realtime feeling search</li>*/}
         <div className="space-y-2">
-          <Input label="Stock Symbol" />
+          <Input dataTest="stock-symbol" label="Stock Symbol" />
           <Button href="/signup/deposit">Continue</Button>
         </div>
       </Card>

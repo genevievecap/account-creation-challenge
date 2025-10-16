@@ -1,11 +1,12 @@
 import { describe } from '@jest/globals';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { AccountSelection } from './account-selection';
-import '@testing-library/jest-dom';
 import { AccountContext } from 'app/frontend/providers/AccountProvider';
 import { AccountStateType } from 'app/frontend/providers/AccountProvider/types';
+import '@testing-library/jest-dom';
+import { StockRestrictions } from './stock-restrictions';
 
 global.fetch = jest.fn();
 const getUserSessionMock = jest.fn();
@@ -18,12 +19,11 @@ jest.mock('app/frontend/get-user', () => ({
   getUserSession: () => getUserSessionMock,
 }));
 
-describe('AccountSelection', () => {
+describe('StockRestrictions', () => {
   it('displays proper elements', () => {
-    render(<AccountSelection />, { wrapper: BrowserRouter });
-    expect(screen.getByTestId('welcome-message')).toBeInTheDocument();
-    expect(screen.getByText('I want to open a cash account.')).toBeInTheDocument();
-    expect(screen.getByText('I want to open an investing account.')).toBeInTheDocument();
+    render(<StockRestrictions />, { wrapper: BrowserRouter });
+    expect(screen.getByTestId('stock-symbol')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Continue' })).toBeInTheDocument();
   });
 
   it('routes to create-account when valid user not found', () => {
@@ -32,12 +32,11 @@ describe('AccountSelection', () => {
     render(
       <AccountContext.Provider value={invalidUser}>
         <BrowserRouter>
-          <AccountSelection />
+          <StockRestrictions />
         </BrowserRouter>
       </AccountContext.Provider>
     );
 
-    // The effect should trigger navigation
     expect(mockNavigate).toHaveBeenCalledWith('/create-account');
   });
 });
