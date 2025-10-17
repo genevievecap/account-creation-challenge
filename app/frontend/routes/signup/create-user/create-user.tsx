@@ -8,21 +8,29 @@ import { useNavigate } from 'react-router-dom';
 import { SIGN_UP_ERROR_MESSAGE } from 'app/frontend/constants.ts';
 import { AlertContext } from 'app/frontend/providers/AlertProvider/index.tsx';
 import { AlertActionTypes } from 'app/frontend/providers/AlertProvider/types.ts';
+import { getCookie } from 'app/frontend/cookies/helpers.ts';
+import { AccountActionTypes } from 'app/frontend/providers/AccountProvider/types.ts';
 
 export function CreateUser() {
   const user = useContext(AccountContext);
   const navigate = useNavigate();
   const alerts = useContext(AlertContext);
+  const sessionToken = getCookie('session_token');
+  const shouldRoute = !sessionToken && (!user?.state.isValid || !user);
 
   useEffect(() => {
-    if (user && user.state && !user.state.isValid) {
+    if (shouldRoute) {
+      console.log('user is not valid, redirecting to create-account');
       navigate('/create-account');
       alerts?.dispatch({
         type: AlertActionTypes.SET_ALERT,
         payload: { alert: { message: SIGN_UP_ERROR_MESSAGE } },
       });
     }
-  }, [user, navigate]);
+    if (!user?.state.username) {
+      user?.dispatch({ type: AccountActionTypes.SET_USERNAME, payload: { username: sessionToken || 'Guest' } });
+    }
+  }, [user, navigate, alerts]);
 
   return (
     <FlowLayout>

@@ -1,6 +1,7 @@
 import { SIGN_UP_ERROR_MESSAGE } from 'app/frontend/constants';
-import { getUserSession } from 'app/frontend/get-user';
+import { getCookie } from 'app/frontend/cookies/helpers';
 import { AccountContext } from 'app/frontend/providers/AccountProvider';
+import { AccountActionTypes } from 'app/frontend/providers/AccountProvider/types';
 import { AlertContext } from 'app/frontend/providers/AlertProvider';
 import { AlertActionTypes } from 'app/frontend/providers/AlertProvider/types';
 import { Card } from 'app/frontend/reusable-components/card/card';
@@ -13,11 +14,11 @@ export const AccountSelection = () => {
   const user = useContext(AccountContext);
   const alerts = useContext(AlertContext);
   const navigate = useNavigate();
+  const sessionToken = getCookie('session_token');
+  const shouldRoute = !sessionToken && (!user?.state.isValid || !user);
 
   useEffect(() => {
-    // TODO: this is returning false
-    getUserSession();
-    if (user && user.state && !user.state.isValid) {
+    if (shouldRoute) {
       console.log('user is not valid, redirecting to create-account');
       navigate('/create-account');
       alerts?.dispatch({
@@ -25,7 +26,10 @@ export const AccountSelection = () => {
         payload: { alert: { message: SIGN_UP_ERROR_MESSAGE } },
       });
     }
-  }, [user, navigate]);
+    if (!user?.state.username) {
+      user?.dispatch({ type: AccountActionTypes.SET_USERNAME, payload: { username: sessionToken || 'Guest' } });
+    }
+  }, [user, navigate, alerts]);
 
   return (
     <FlowLayout>

@@ -12,6 +12,7 @@ import { Alert } from 'app/frontend/reusable-components/alert';
 import { AlertContext } from 'app/frontend/providers/AlertProvider';
 import { AlertActionTypes } from 'app/frontend/providers/AlertProvider/types';
 import { SERVER_ERROR_MESSAGE } from 'app/frontend/constants';
+import { setCookie } from 'app/frontend/cookies/helpers';
 
 export function CreateAccount() {
   const [username, setUsername] = React.useState('');
@@ -46,7 +47,7 @@ export function CreateAccount() {
         body: JSON.stringify({ username, password }),
       });
       const data = await res.json();
-
+      setCookie('session_token', username);
       console.log('response from backend:', data);
 
       if (data?.logged_in) {

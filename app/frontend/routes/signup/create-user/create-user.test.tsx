@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { CreateUser } from './create-user';
 import { AccountContext } from 'app/frontend/providers/AccountProvider';
 import { AccountStateType } from 'app/frontend/providers/AccountProvider/types';
+import '@testing-library/jest-dom';
 
 global.fetch = jest.fn();
 const getUserSessionMock = jest.fn();
