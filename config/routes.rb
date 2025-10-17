@@ -7,5 +7,4 @@ Rails.application.routes.draw do
   get 'create-account', to: 'application#render_react', as: :createAccount
 
   post 'api/validate_account', to: 'api#validate_account'
-  get 'api/get_account', to: 'api#get_account'
 end

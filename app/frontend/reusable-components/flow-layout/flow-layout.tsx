@@ -4,6 +4,7 @@ import React, { ReactNode, useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../button/button';
 import { ButtonVariants } from '../button/types';
+import { getCookie, eraseCookie } from 'app/frontend/cookies/helpers';
 
 interface Props {
   children: ReactNode;
@@ -12,13 +13,12 @@ interface Props {
 export function FlowLayout({ children }: Props) {
   const user = useContext(AccountContext);
   const navigate = useNavigate();
-  const isValid = user?.state.isValid;
-
-  // TODO: need to add session storage logic for this
-  // Test coverage for storage logic
+  const sessionToken = getCookie('session_token');
+  const isValid = user?.state.isValid || Boolean(sessionToken);
 
   const handleLogout = useCallback(() => {
     user?.dispatch({ type: AccountActionTypes.DELETE_USERNAME });
+    eraseCookie('session_token');
     navigate('/create-account');
   }, [user, navigate]);
 

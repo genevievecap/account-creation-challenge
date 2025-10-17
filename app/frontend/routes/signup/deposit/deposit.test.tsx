@@ -9,14 +9,10 @@ import { Deposit } from './deposit';
 import '@testing-library/jest-dom';
 
 global.fetch = jest.fn();
-const getUserSessionMock = jest.fn();
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockNavigate,
-}));
-jest.mock('app/frontend/get-user', () => ({
-  getUserSession: () => getUserSessionMock,
 }));
 
 describe('Deposit', () => {
