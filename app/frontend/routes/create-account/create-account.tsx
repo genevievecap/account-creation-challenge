@@ -50,7 +50,7 @@ export function CreateAccount() {
       setCookie('session_token', username);
       console.log('response from backend:', data);
 
-      if (data?.logged_in) {
+      if (data?.username === true && data?.password === true) {
         navigate('/signup/account-selection');
 
         user?.dispatch({ type: AccountActionTypes.SET_USERNAME, payload: { username } });
